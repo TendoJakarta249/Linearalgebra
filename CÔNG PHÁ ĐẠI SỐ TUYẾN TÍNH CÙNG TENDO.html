@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CÔNG PHÁ ĐẠI SỐ TUYẾN TÍNH CÙNG TENDO</title>
+<style>
+:root{--bg:#07100a;--card:#0e1b12;--bd:#1d3a26;--g:#22e06b;--tx:#d6efe0;--mu:#7fa agg;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--mu:#8bb59a}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 system-ui,Segoe UI,Arial,sans-serif}
+header{text-align:center;padding:34px 16px 18px;background:radial-gradient(ellipse at top,#0d2a17,transparent 70%)}
+h1{margin:0;font-size:clamp(22px,4.5vw,40px);color:var(--g);letter-spacing:1px;text-shadow:0 0 22px #22e06b55}
+header p{margin:6px 0 0;color:var(--mu)}
+nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:10px 12px;position:sticky;top:env(safe-area-inset-top,0px);background:#07100af0;z-index:5;border-bottom:1px solid var(--bd)}
+button{font:inherit;cursor:pointer;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 14px}
+button:hover{border-color:var(--g)}button.on{background:var(--g);color:#04120a;font-weight:700;border-color:var(--g)}
+main{max-width:1250px;margin:0 auto;padding:18px 14px 40px}
+.sub{display:flex;gap:8px;margin:8px 0 16px;flex-wrap:wrap}
+h2{color:var(--g);margin:6px 0 12px}
+.it{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--g);border-radius:8px;padding:10px 14px;margin:10px 0;overflow-x:auto}
+.it b.t{color:var(--g)}
+.ed{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:800px){.ed{grid-template-columns:1fr}}
+.pane{background:var(--card);border:1px solid var(--bd);border-radius:8px;overflow:hidden;min-width:0}
+.ph{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#0a1a10;color:var(--mu);font-size:13px;border-bottom:1px solid var(--bd)}
+.ph button{padding:3px 10px;font-size:13px}
+textarea{width:100%;height:560px;background:#050c07;color:#b9f5cf;border:0;padding:12px;font:13.5px/1.55 Consolas,Menlo,monospace;resize:vertical;outline:0;tab-size:2}
+.pv{padding:12px 16px;height:560px;overflow:auto}
+.pv h4{color:var(--g);font-size:19px;margin:6px 0}
+.bt{border:1px solid var(--bd);border-radius:8px;padding:10px 14px;margin:12px 0;background:#0a160e}
+.bt>b:first-child{color:var(--g)}
+details{margin-top:10px;border:1px dashed var(--g);border-radius:6px;padding:6px 12px}
+summary{cursor:pointer;color:var(--g);font-weight:700}
+.ls{margin-top:8px;color:#c8ecd5}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+footer{text-align:center;padding:22px 12px;border-top:1px solid var(--bd);color:var(--g);font-weight:600}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+</head><body>
+<header><h1>CÔNG PHÁ ĐẠI SỐ TUYẾN TÍNH CÙNG TENDO</h1><p>Tổng hợp lý thuyết &amp; luyện bài tập Đại số tuyến tính 1A</p></header>
+<nav id="nav"></nav>
+<main><h2 id="ct"></h2><div class="sub"><button id="b0">Định nghĩa và các định lý quan trọng</button><button id="b1">Bài tập và Lời giải</button></div><div id="c"></div></main>
+<footer>Tendo Jakarta - Đỗ Tiến Dũng, K26 KDL_DKD HCMUS</footer>
+<script>
+const R=String.raw;
+const CH=[
+{t:'Chương 1. Ma trận và hệ phương trình tuyến tính',d:[
+[R`Ma trận`,R`Ma trận cấp $m\times n$ trên $\mathbb R$ là bảng chữ nhật $A=(a_{ij})$ gồm $m$ dòng, $n$ cột. $M_{m\times n}(\mathbb R)$ là tập các ma trận cấp $m\times n$; ma trận vuông có $m=n$. Ma trận tam giác trên: $a_{ij}=0\ \forall i>j$; tam giác dưới: $a_{ij}=0\ \forall i<j$; đường chéo: $a_{ij}=0\ \forall i\ne j$, ký hiệu $\mathrm{diag}(a_{11},\dots,a_{nn})$; ma trận đơn vị $I_n$.`],
+[R`Chuyển vị, đối xứng`,R`$A^\top$ có được bằng cách xếp dòng của $A$ thành cột. $(A^\top)^\top=A$; $A$ đối xứng nếu $A^\top=A$.`],
+[R`Phép toán`,R`$(A+B)_{ij}=A_{ij}+B_{ij}$, $(\alpha A)_{ij}=\alpha A_{ij}$. Tích $A\in M_{m\times n}$, $B\in M_{n\times p}$: $(AB)_{ij}=\sum_{k=1}^n A_{ik}B_{kj}$. Tính chất: $(AB)^\top=B^\top A^\top$, $(AB)C=A(BC)$, $A(B_1+B_2)=AB_1+AB_2$, $I_mA=A=AI_n$. Lũy thừa $A^k=A^{k-1}A$, $A^0=I_n$; đa thức ma trận $f(A)=\alpha_mA^m+\dots+\alpha_1A+\alpha_0I_n$.`],
+[R`Phép biến đổi sơ cấp trên dòng`,R`Ba loại: $d_i\leftrightarrow d_j$; $\alpha d_i$ ($\alpha\ne0$); $d_i+\beta d_j$ ($j\ne i$). $A\sim B$ (tương đương dòng) nếu $B$ có được từ $A$ qua hữu hạn phép BĐSCTD.`],
+[R`Ma trận bậc thang, hạng`,R`Ma trận bậc thang: dòng không nằm dưới, phần tử cơ sở của dòng dưới nằm bên phải phần tử cơ sở dòng trên. Bậc thang rút gọn: phần tử cơ sở bằng $1$ và là phần tử khác $0$ duy nhất trong cột của nó. <b>Định lý:</b> dạng bậc thang rút gọn $R_A$ của $A$ là duy nhất. Hạng $r(A)$ = số dòng khác $0$ của một dạng bậc thang; $0\le r(A)\le\min\{m,n\}$. Thuật toán Gauss (đưa về bậc thang), Gauss–Jordan (bậc thang rút gọn).`],
+[R`Hệ phương trình tuyến tính`,R`Hệ $AX=B$ có ma trận mở rộng $\tilde A=(A\,|\,B)$. <b>Định lý:</b> nếu hai ma trận mở rộng tương đương dòng thì hai hệ tương đương. Một hệ có đúng một trong ba khả năng: vô nghiệm, đúng một nghiệm, vô số nghiệm. <b>Kronecker–Capelli:</b> $r(\tilde A)=r(A)$ hoặc $r(A)+1$; hệ vô nghiệm $\iff r(\tilde A)=r(A)+1$; có nghiệm duy nhất $\iff r(\tilde A)=r(A)=n$; vô số nghiệm $\iff r(\tilde A)=r(A)<n$.`],
+[R`Ma trận khả nghịch`,R`$A\in M_n$ khả nghịch nếu $\exists B$: $AB=BA=I_n$; $B=A^{-1}$ là duy nhất. $(A^{-1})^{-1}=A$, $(AB)^{-1}=B^{-1}A^{-1}$. <b>Ma trận sơ cấp</b> $E$ (từ $I_n$ qua đúng một phép BĐSCTD): $A'=EA$, mọi ma trận sơ cấp khả nghịch với nghịch đảo là ma trận sơ cấp; $A\sim B\iff B=E_k\cdots E_1A$. <b>Định lý:</b> $A$ khả nghịch $\iff A\sim I_n\iff r(A)=n$; khi đó $(A\,|\,I)\to(I\,|\,A^{-1})$ bằng Gauss–Jordan. Nếu $A$ khả nghịch phải (hoặc trái) thì $A$ khả nghịch.`],
+[R`Phương trình ma trận`,R`Với $A$ khả nghịch: $AX=B\iff X=A^{-1}B$; $XA=C\iff X=CA^{-1}$.`]],
+e:R`\section*{Chương 1}
+\begin{baitap}
+Cho $A=\begin{pmatrix}1&2&-1\\3&0&1\end{pmatrix}$, $B=\begin{pmatrix}2&3\\-2&1\\1&2\end{pmatrix}$. Tính $AB$.
+\begin{loigiai}
+$A\in M_{2\times3}$, $B\in M_{3\times2}$ nên $AB\in M_{2\times2}$:
+$$AB=\begin{pmatrix}-3&3\\7&11\end{pmatrix}.$$
+\end{loigiai}
+\end{baitap}
+\begin{baitap}
+Cho $A=\begin{pmatrix}-2&3\\1&-1\end{pmatrix}$, $f(x)=3x^2-2x+2$. Tính $f(A)$.
+\begin{loigiai}
+$A^2=\begin{pmatrix}7&-9\\-3&4\end{pmatrix}$ và $f(A)=3A^2-2A+2I_2$, suy ra
+$$f(A)=\begin{pmatrix}27&-33\\-11&16\end{pmatrix}.$$
+\end{loigiai}
+\end{baitap}
+\begin{baitap}
+Cho $A=\begin{pmatrix}1&3\\0&1\end{pmatrix}$. Tính $A^{200}$.
+\begin{loigiai}
+Tính $A^2,A^3$ rồi dự đoán $A^n=\begin{pmatrix}1&3n\\0&1\end{pmatrix}$ (chứng minh bằng quy nạp). Vậy $A^{200}=\begin{pmatrix}1&600\\0&1\end{pmatrix}$.
+\end{loigiai}
+\end{baitap}`},
+{t:'Chương 2. Định thức',d:[
+[R`Định thức`,R`$A(i|j)$ là ma trận có được từ $A$ bằng cách xóa dòng $i$, cột $j$. Phần bù đại số $c_{ij}=(-1)^{i+j}|A(i|j)|$. Định thức $|A|=\det A$ được định nghĩa quy nạp theo khai triển. <b>Định lý (khai triển):</b> $|A|=\sum_{j=1}^n a_{ij}c_{ij}$ (theo dòng $i$) $=\sum_{i=1}^n a_{ij}c_{ij}$ (theo cột $j$). Quy tắc Sarrus cho cấp $3$.`],
+[R`Tính chất cơ bản`,R`$|A^\top|=|A|$. Nếu $A$ tam giác thì $|A|$ bằng tích các phần tử trên đường chéo. <b>Định lý:</b> $|AB|=|A||B|$. <b>Hệ quả:</b> $|A_1\cdots A_m|=|A_1|\cdots|A_m|$, $|A^k|=|A|^k$.`],
+[R`Định thức và BĐSCTD`,R`Nếu $A\xrightarrow{d_i\leftrightarrow d_j}A'$ thì $|A'|=-|A|$; $A\xrightarrow{\alpha d_i}A'$ thì $|A'|=\alpha|A|$; $A\xrightarrow{d_i+\beta d_j}A'$ thì $|A'|=|A|$. <b>Hệ quả:</b> $|\alpha A|=\alpha^n|A|$. Vì $|A^\top|=|A|$ nên có thể dùng biến đổi trên cột.`],
+[R`Định thức và khả nghịch`,R`<b>Định lý:</b> $A$ khả nghịch $\iff|A|\ne0$; khi đó $|A^{-1}|=|A|^{-1}$. Ma trận phụ hợp $\mathrm{adj}(A)=(c_{ij})^\top$ và $A^{-1}=\dfrac1{|A|}\mathrm{adj}(A)$. <b>Quy tắc Cramer:</b> hệ $AX=B$ với $|A|\ne0$ có nghiệm duy nhất $x_i=\dfrac{|A_i|}{|A|}$ ($A_i$ là $A$ thay cột $i$ bằng $B$).`]],
+e:R`\section*{Chương 2}
+\begin{baitap}
+Cho $A\in M_3(\mathbb R)$ với $|A|=2$. Tính $|2A|$ và $|A^{-1}|$.
+\begin{loigiai}
+$|2A|=2^3|A|=16$ và $|A^{-1}|=|A|^{-1}=\tfrac12$.
+\end{loigiai}
+\end{baitap}
+\begin{baitap}
+Tính $\begin{vmatrix}1&1&1\\1&2&3\\1&4&9\end{vmatrix}$.
+\begin{loigiai}
+Khai triển theo dòng 1: $1(18-12)-1(9-3)+1(4-2)=6-6+2=2.$
+\end{loigiai}
+\end{baitap}`},
+{t:'Chương 3. Không gian vectơ',d:[
+[R`Không gian vectơ`,R`$V$ cùng phép $+$ và nhân vô hướng với $\mathbb R$ là không gian vectơ nếu thỏa 8 tiên đề. Mệnh đề: $\alpha u=0\iff(\alpha=0\ \text{hoặc}\ u=0)$.`],
+[R`Độc lập tuyến tính, tập sinh`,R`Tổ hợp tuyến tính: $u=\alpha_1u_1+\dots+\alpha_mu_m$. $u_1,\dots,u_m$ độc lập tuyến tính nếu $\sum\alpha_iu_i=0$ chỉ có nghiệm tầm thường. Trong $\mathbb R^n$: xếp thành ma trận $A$ (dòng hoặc cột), độc lập $\iff r(A)=m$. $S$ là tập sinh của $V$ nếu mọi vectơ của $V$ là tổ hợp tuyến tính của $S$ ($V=\langle S\rangle$).`],
+[R`Cơ sở, số chiều`,R`Cơ sở = tập sinh độc lập tuyến tính. Nếu $V$ sinh bởi $m$ vectơ thì mọi tập độc lập có không quá $m$ phần tử; mọi cơ sở của $V$ có cùng số phần tử, gọi là $\dim V$. Nếu $\dim V=n$: tập có hơn $n$ vectơ thì phụ thuộc; tập độc lập có $n$ vectơ (hoặc tập sinh có $n$ vectơ) là cơ sở. Nếu $S$ độc lập, $u\notin\langle S\rangle$ thì $S\cup\{u\}$ độc lập. <b>Định lý cơ sở không toàn vẹn:</b> mọi tập độc lập bổ sung được thành cơ sở; mọi tập sinh chứa một cơ sở.`],
+[R`Không gian con`,R`$W\le V$ nếu $W\ne\emptyset$ cùng phép toán hạn chế là không gian vectơ $\iff u+v\in W,\ \alpha u\in W$. $\langle S\rangle$ là không gian con; $\langle S_1\rangle=\langle S_2\rangle$ nếu mỗi vectơ của $S_1$ là tổ hợp của $S_2$ và ngược lại. Nghiệm của hệ thuần nhất là không gian con (số chiều $=n-r(A)$).`],
+[R`Không gian dòng`,R`$W_A$ = không gian sinh bởi các dòng của $A$. <b>Bổ đề:</b> $A\sim B\Rightarrow W_A=W_B$. <b>Định lý:</b> $\dim W_A=r(A)$ và các dòng khác $0$ của dạng bậc thang là cơ sở của $W_A$.`],
+[R`Tổng, giao, tổng trực tiếp`,R`$W_1+W_2=\{w_1+w_2\}$ là không gian con; $W_1\cap W_2\le V$; nếu $W_i=\langle S_i\rangle$ thì $W_1+W_2=\langle S_1\cup S_2\rangle$. <b>Công thức:</b> $\dim(W_1+W_2)=\dim W_1+\dim W_2-\dim(W_1\cap W_2)$. $W=W_1\oplus\dots\oplus W_n$ nếu $W=\sum W_i$ và $W_i\cap\sum_{j\ne i}W_j=\{0\}$; tương đương mọi $u\in W$ có biểu diễn duy nhất.`],
+[R`Tọa độ, ma trận chuyển cơ sở`,R`Nếu $\mathcal B=(u_1,\dots,u_n)$ là cơ sở được sắp thì mọi $u=\sum\alpha_iu_i$ <b>duy nhất</b>; $[u]_{\mathcal B}=(\alpha_1,\dots,\alpha_n)^\top$, $[u+v]_{\mathcal B}=[u]_{\mathcal B}+[v]_{\mathcal B}$, $[\alpha u]_{\mathcal B}=\alpha[u]_{\mathcal B}$. Ma trận chuyển $(\mathcal B_1\to\mathcal B_2)=([v_1]_{\mathcal B_1}\cdots[v_n]_{\mathcal B_1})$, $[u]_{\mathcal B_1}=(\mathcal B_1\to\mathcal B_2)[u]_{\mathcal B_2}$. $(\mathcal B\to\mathcal B)=I_n$, $(\mathcal B_1\to\mathcal B_3)=(\mathcal B_1\to\mathcal B_2)(\mathcal B_2\to\mathcal B_3)$, $(\mathcal B\to\mathcal B')=(\mathcal B'\to\mathcal B)^{-1}$.`]],
+e:R`\section*{Chương 3}
+\begin{baitap}
+Chứng tỏ $\mathcal B=(u_1,u_2,u_3)$ với $u_1=(1,-1,1),u_2=(1,0,1),u_3=(2,-1,3)$ là cơ sở của $\mathbb R^3$.
+\begin{loigiai}
+Lập $A=\begin{pmatrix}1&-1&1\\1&0&1\\2&-1&3\end{pmatrix}$, $\det A=1\neq0$ nên $\mathcal B$ độc lập tuyến tính. Vì $\dim\mathbb R^3=3$ bằng số vectơ của $\mathcal B$ nên $\mathcal B$ là cơ sở.
+\end{loigiai}
+\end{baitap}
+\begin{baitap}
+Cho $W_1,W_2\le V$ với $\dim W_1=2$, $\dim W_2=3$, $\dim(W_1\cap W_2)=1$. Tính $\dim(W_1+W_2)$.
+\begin{loigiai}
+$\dim(W_1+W_2)=2+3-1=4$.
+\end{loigiai}
+\end{baitap}`},
+{t:'Chương 4. Ánh xạ tuyến tính',d:[
+[R`Ánh xạ tuyến tính`,R`$f:V\to W$ là ánh xạ tuyến tính nếu $f(u+v)=f(u)+f(v)$ và $f(\alpha u)=\alpha f(u)$; tương đương $f(\alpha u+v)=\alpha f(u)+f(v)$. $L(V,W)$ là tập các ánh xạ tuyến tính; $f\in L(V,V)$ là <b>toán tử tuyến tính</b> ($L(V)$, $\mathrm{End}_{\mathbb R}(V)$). Đơn cấu / toàn cấu / đẳng cấu = tuyến tính + đơn ánh / toàn ánh / song ánh. <b>Định lý:</b> mọi không gian $n$ chiều trên $\mathbb R$ đẳng cấu với $\mathbb R^n$ (qua $u\mapsto[u]_{\mathcal B}$).`],
+[R`Tính chất`,R`$f(0)=0$; $f(-u)=-f(u)$; $f(\sum\alpha_iu_i)=\sum\alpha_if(u_i)$. <b>Định lý (xác định bởi cơ sở):</b> nếu $\mathcal B=\{u_1,\dots,u_n\}$ là cơ sở của $V$ và $v_1,\dots,v_n\in W$ thì tồn tại <b>duy nhất</b> $f\in L(V,W)$ với $f(u_i)=v_i$, và $f(u)=\sum\alpha_if(u_i)$ nếu $[u]_{\mathcal B}=(\alpha_i)$. <b>Mệnh đề:</b> $f:\mathbb R^n\to\mathbb R^m$ tuyến tính $\iff\exists A\in M_{n\times m}$: $f(u)=uA$.`],
+[R`Nhân và ảnh`,R`$\mathrm{Ker}f=\{u\in V\mid f(u)=0\}\le V$; $\mathrm{Im}f=\{f(u)\mid u\in V\}\le W$. Nếu $S$ là tập sinh của $V$ thì $f(S)$ là tập sinh của $\mathrm{Im}f$ (dùng cơ sở chính tắc để tìm cơ sở $\mathrm{Im}f$). <b>Định lý số chiều:</b> $\dim\mathrm{Im}f+\dim\mathrm{Ker}f=\dim V$.`],
+[R`Ma trận biểu diễn`,R`Với $\mathcal B=(u_1,\dots,u_n)$, $\mathcal C=(v_1,\dots,v_m)$: $[f]_{\mathcal B,\mathcal C}=([f(u_1)]_{\mathcal C}\ \cdots\ [f(u_n)]_{\mathcal C})$. Với $\mathbb R^n,\mathbb R^m$: Gauss–Jordan $(v_1^\top\cdots v_m^\top\,|\,f(u_1)^\top\cdots f(u_n)^\top)\to(I_m\,|\,P)$, $[f]_{\mathcal B,\mathcal C}=P$. Với toán tử: $[f]_{\mathcal B}=[f]_{\mathcal B,\mathcal B}$.`],
+[R`Công thức đổi cơ sở`,R`(i) $[f(u)]_{\mathcal C}=[f]_{\mathcal B,\mathcal C}[u]_{\mathcal B}$. (ii) $[f]_{\mathcal B',\mathcal C'}=(\mathcal C'\to\mathcal C)[f]_{\mathcal B,\mathcal C}(\mathcal B\to\mathcal B')=(\mathcal C\to\mathcal C')^{-1}[f]_{\mathcal B,\mathcal C}(\mathcal B\to\mathcal B')$. <b>Hệ quả</b> (toán tử): $[f(u)]_{\mathcal B}=[f]_{\mathcal B}[u]_{\mathcal B}$ và $[f]_{\mathcal B'}=(\mathcal B\to\mathcal B')^{-1}[f]_{\mathcal B}(\mathcal B\to\mathcal B')$.`]],
+e:R`\section*{Chương 4}
+\begin{baitap}
+Cho $f\in L(\mathbb R^3,\mathbb R^2)$ với $f(1,2,1)=(2,1)$, $f(-1,2,3)=(4,-3)$. Tính $f(5,2,-3)$.
+\begin{loigiai}
+Ta có $(5,2,-3)=3(1,2,1)-2(-1,2,3)$. Suy ra
+$$f(5,2,-3)=3(2,1)-2(4,-3)=(-2,9).$$
+\end{loigiai}
+\end{baitap}
+\begin{baitap}
+Cho $f(x,y,z)=(x+y-z,\,2x+3y-z,\,3x+5y-z)$. Tìm một cơ sở của $\operatorname{Ker}f$.
+\begin{loigiai}
+$f(u)=0$ cho hệ có ma trận $\begin{pmatrix}1&1&-1\\2&3&-1\\3&5&-1\end{pmatrix}\sim\begin{pmatrix}1&0&-2\\0&1&1\\0&0&0\end{pmatrix}$.
+Nghiệm $(x,y,z)=(2t,-t,t)$. Vậy $\operatorname{Ker}f$ có cơ sở $\{(2,-1,1)\}$ và $\dim\operatorname{Im}f=3-1=2$.
+\end{loigiai}
+\end{baitap}`},
+{t:'Chương 5. Sự chéo hóa',d:[
+[R`Trị riêng, vectơ riêng`,R`$v\in V$ là vectơ riêng của $f\in\mathrm{End}_{\mathbb R}(V)$ nếu $v\ne0$ và $f(v)=\lambda v$; khi đó $\lambda$ là trị riêng. Nếu $v$ là vectơ riêng ứng với $\lambda$ thì $\mu v$ ($\mu\ne0$) cũng vậy. Đa thức đặc trưng $P_f(\lambda)=\det(A-\lambda I_n)$, $A=[f]_{\mathcal B}$ (<b>không phụ thuộc cơ sở</b> vì $|P^{-1}AP-\lambda I|=|A-\lambda I|$). <b>Mệnh đề:</b> trị riêng của $f$ là nghiệm của $P_f(\lambda)=0$.`],
+[R`Không gian riêng`,R`$E(\lambda)=\{v\mid f(v)=\lambda v\}=\mathrm{Ker}(f-\lambda\,\mathrm{Id}_V)$, là không gian nghiệm của $(A-\lambda I_n)X=0$. Các $E(\lambda_i)$ (với $\lambda_i$ phân biệt) tạo thành <b>tổng trực tiếp</b>. Nếu $\lambda$ là trị riêng bội $m$ thì $\dim E(\lambda)\le m$.`],
+[R`Chéo hóa toán tử`,R`$f$ chéo hóa được nếu $\exists$ cơ sở $\mathcal B$ để $[f]_{\mathcal B}$ là ma trận đường chéo. <b>Định lý:</b> $f$ chéo hóa được $\iff$ có cơ sở gồm toàn vectơ riêng. <b>Định lý:</b> $f$ chéo hóa được $\iff$ (i) $P_f(\lambda)=(-1)^n(\lambda-\lambda_1)^{m_1}\cdots(\lambda-\lambda_p)^{m_p}$ phân rã trên $\mathbb R$, và (ii) $\dim E(\lambda_i)=m_i\ \forall i$. <b>Hệ quả:</b> $f$ có $n$ trị riêng phân biệt thì chéo hóa được.`],
+[R`Thuật toán chéo hóa`,R`1) Lập $A=[f]_{\mathcal B_0}$. 2) Tìm $P_A(\lambda)$; không phân rã $\Rightarrow$ không chéo hóa được. 3) Tìm nghiệm $\lambda_i$, bội $m_i$ và $\dim E(\lambda_i)$; nếu $\dim E(\lambda_i)<m_i$ thì không chéo hóa được. 4) Lấy cơ sở mỗi $E(\lambda_i)$, đặt các vectơ thành cột của $P$: $P^{-1}AP=\mathrm{diag}(\lambda_1,\dots,\lambda_1,\dots,\lambda_p,\dots,\lambda_p)$.`],
+[R`Ma trận chéo hóa được`,R`$A\sim B$ (đồng dạng) nếu $A=P^{-1}BP$ với $P$ khả nghịch; đây là quan hệ tương đương. $A$ chéo hóa được nếu đồng dạng với ma trận đường chéo; điều kiện và thuật toán tương tự toán tử.`],
+[R`Ứng dụng`,R`Nếu $P^{-1}AP=D=\mathrm{diag}(\lambda_1,\dots,\lambda_n)$ thì $A^k=PD^kP^{-1}=P\,\mathrm{diag}(\lambda_1^k,\dots,\lambda_n^k)P^{-1}$ và $[f^k]_{\mathcal B_0}=([f]_{\mathcal B_0})^k$. Dãy truy hồi $X_{n+1}=AX_n\Rightarrow X_n=A^nX_0$. Fibonacci: $F_k=\dfrac1{\sqrt5}\Big[\Big(\dfrac{1+\sqrt5}2\Big)^k-\Big(\dfrac{1-\sqrt5}2\Big)^k\Big]$.`]],
+e:R`\section*{Chương 5}
+\begin{baitap}
+Tìm trị riêng của $f(x_1,x_2)=(x_1+2x_2,\,-x_1+4x_2)$.
+\begin{loigiai}
+$A=\begin{pmatrix}1&2\\-1&4\end{pmatrix}$, $P_f(\lambda)=\lambda^2-5\lambda+6=(\lambda-2)(\lambda-3)$. Vậy $\lambda_1=2$, $\lambda_2=3$; vì có 2 trị riêng phân biệt nên $f$ chéo hóa được.
+\end{loigiai}
+\end{baitap}
+\begin{baitap}
+Cho $A=\begin{pmatrix}1&-1\\2&4\end{pmatrix}$. Tính $A^n$.
+\begin{loigiai}
+$E(2)=\langle(-1,1)\rangle$, $E(3)=\langle(-1,2)\rangle$. Lấy $P=\begin{pmatrix}-1&-1\\1&2\end{pmatrix}$, $D=\mathrm{diag}(2,3)$. Khi đó
+$$A^n=PD^nP^{-1}=\begin{pmatrix}2^{n+1}-3^n&2^n-3^n\\-2^{n+1}+2\cdot3^n&-2^n+2\cdot3^n\end{pmatrix}.$$
+\end{loigiai}
+\end{baitap}`}];
+let cur=0,tab=0;
+const $=id=>document.getElementById(id);
+function render(src){
+ let k=0;
+ return src.replace(/</g,'&lt;')
+ .replace(/\\section\*?\{(.*?)\}/g,'<h4>$1</h4>')
+ .replace(/\\begin\{baitap\}/g,()=>'<div class="bt"><b>Bài '+(++k)+'.</b> ')
+ .replace(/\\end\{baitap\}/g,'</div>')
+ .replace(/\\begin\{loigiai\}/g,'<details><summary>Lời giải</summary><div class="ls">')
+ .replace(/\\end\{loigiai\}/g,'</div></details>')
+ .replace(/\\begin\{(itemize|enumerate)\}/g,(m,a)=>a=='itemize'?'<ul>':'<ol>')
+ .replace(/\\end\{(itemize|enumerate)\}/g,(m,a)=>a=='itemize'?'</ul>':'</ol>')
+ .replace(/\\item/g,'<li>')
+ .replace(/\\textbf\{(.*?)\}/g,'<b>$1</b>').replace(/\\textit\{(.*?)\}/g,'<i>$1</i>')
+ .replace(/\n\s*\n/g,'<br><br>');
+}
+function typeset(el){if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([el]).catch(()=>{})}
+const src=CH.map(c=>c.e);
+function show(){
+ document.querySelectorAll('#nav button').forEach((b,i)=>b.classList.toggle('on',i==cur));
+ $('b0').classList.toggle('on',tab==0);$('b1').classList.toggle('on',tab==1);
+ $('ct').textContent=CH[cur].t;const c=$('c');
+ if(tab==0){c.innerHTML=CH[cur].d.map(x=>'<div class="it"><b class="t">'+x[0]+'.</b> '+x[1]+'</div>').join('');typeset(c)}
+ else{
+  c.innerHTML='<p style="color:var(--mu)">Môi trường LaTeX: chỉnh mã nguồn bên trái, bản xem trước cập nhật ngay. Dùng <code>\\begin{baitap}…\\end{baitap}</code>, <code>\\begin{loigiai}…\\end{loigiai}</code> (lời giải bị ẩn, bấm “Lời giải” để mở), công thức trong <code>$…$</code> hoặc <code>$$…$$</code>, cùng <code>\\textbf, \\textit, itemize, enumerate</code>.</p><div class="ed"><div class="pane"><div class="ph"><span>main.tex</span><button id="cp">Sao chép .tex</button></div><textarea id="tx" spellcheck="false"></textarea></div><div class="pane"><div class="ph"><span>Xem trước</span><button id="rc">Biên dịch</button></div><div class="pv" id="pv"></div></div></div>';
+  const tx=$('tx'),pv=$('pv');tx.value=src[cur];
+  const go=()=>{src[cur]=tx.value;pv.innerHTML=render(tx.value);typeset(pv)};
+  let t;tx.oninput=()=>{clearTimeout(t);t=setTimeout(go,350)};
+  tx.onkeydown=e=>{if(e.key=='Tab'){e.preventDefault();const s=tx.selectionStart;tx.setRangeText('  ',s,tx.selectionEnd,'end')}};
+  $('rc').onclick=go;
+  $('cp').onclick=()=>{tx.select();try{navigator.clipboard.writeText(tx.value)}catch(e){document.execCommand('copy')}$('cp').textContent='Đã chép!';setTimeout(()=>$('cp').textContent='Sao chép .tex',1200)};
+  go();
+ }
+}
+CH.forEach((c,i)=>{const b=document.createElement('button');b.textContent='Chương '+(i+1);b.onclick=()=>{cur=i;show()};$('nav').appendChild(b)});
+$('b0').onclick=()=>{tab=0;show()};$('b1').onclick=()=>{tab=1;show()};
+show();
+window.addEventListener('load',()=>{const t=setInterval(()=>{if(window.MathJax&&MathJax.typesetPromise){clearInterval(t);typeset($('c'))}},200)});
+</script></body></html>
